@@ -1,1 +1,1 @@
-# CaptureCamera
+Program przechwytujacy kamere 
