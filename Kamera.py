@@ -5,13 +5,16 @@ cap = cv2.VideoCapture(0)
 if not cap.isOpened():
     print("Błąd odczytu kamery!")
     exit()
+else:
+    print("Udało sić wczytać kamerkę")
 
 while True:
-    sCap, frame =  cap.read()
+    success, frame =  cap.read()
 
-    if not sCap:
+    if not success:
         print("Błąd odczytu klatek!")
         break
+
 
     cv2.imshow('Kamera', frame)
 
