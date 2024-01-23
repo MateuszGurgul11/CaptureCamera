@@ -14,13 +14,15 @@ if not cam.isOpened():
 
 while True:
     successFrame, frame = cam.read()
-    frame = cv2.cvtColor(cv2.flip(frame, 1), cv2.COLOR_RGB2BGR)    #odwrocenie kamerki aby uniknac odbicia lustrzanego
+    frame = cv2.cvtColor(cv2.flip(frame, 1), cv2.COLOR_BGR2RGB)    #odwrocenie kamerki aby uniknac odbicia lustrzanego
 
-    results = hands.process(frame)
+    results = hands.process(frame)  #Wywoluje proces detekcji
 
-    if(results.multi_hand_landmarks):
-        for hand_landmarks in results.multi_hand_landmarks:
-            mp_drawing.draw_landmarks(
+    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  #Dostosowanie kolorow kamery
+
+    if(results.multi_hand_landmarks):   #Proram sprawdza czy sa wykryte rece jezeli tak program rysuje punkty na dloni
+        for hand_landmarks in results.multi_hand_landmarks: #program itreuje przez kazda wykryta dlon
+            mp_drawing.draw_landmarks(  #Program rusje punkty i łączenia
                 frame,
                 hand_landmarks, mphands.HAND_CONNECTIONS
             )
@@ -30,6 +32,7 @@ while True:
         break
 
     cv2.imshow('HandCam', frame)
+
 
     if(cv2.waitKey(1) & 0xFF == ord('q')):
         break
