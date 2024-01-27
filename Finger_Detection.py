@@ -27,8 +27,8 @@ while True:
                 frame,
                 hand_landmarks,
                 mphands.HAND_CONNECTIONS,
-                landmark_drawing_spec = mp_drawing.DrawingSpec(color = (0, 255, 255), thickness = 2, circle_radius = 4),
-                connection_drawing_spec = mp_drawing.DrawingSpec(color = (255, 0, 255), thickness = 2)
+                landmark_drawing_spec = mp_drawing.DrawingSpec(color = (184, 3, 255), thickness = 2, circle_radius = 4),
+                connection_drawing_spec = mp_drawing.DrawingSpec(color = (0, 0, 0), thickness = 2)
             )
 
             # Pobierz końce dłoni (wierzchołki palców)
@@ -59,7 +59,7 @@ while True:
             square_size = max_x - min_x
 
             # Sprawdź, czy palec jest uniesiony na podstawie wielkości kwadratu
-            if square_size > 200:  # Przykładowa wartość progowa, dostosuj ją według potrzeb
+            if square_size > 200:  # Przykładowa wartość progowa
                 cv2.putText(frame, f"Palec uniesiono palec {finger_tips[i]}", (10, 60), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
             else:
                 cv2.putText(frame, "Palec jest schowany", (10, 60), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
