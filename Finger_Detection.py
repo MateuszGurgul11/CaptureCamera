@@ -38,8 +38,7 @@ while True:
                 tip_point = hand_landmarks.landmark[tip_index]
                 wrist_point = hand_landmarks.landmark[0]
                 if tip_point.y < wrist_point.y:
-                    # Sprawdź, czy lista ma odpowiednią długość
-                    if i < len(fingers_up):
+                    if i < len(fingers_up):     # Sprawdź, czy lista ma odpowiednią długość
                         fingers_up[i] = 1
 
             finger_tips = [(int(hand_landmarks.landmark[i].x * frame.shape[1]), int(hand_landmarks.landmark[i].y * frame.shape[0])) for i in finger_tip_indices]
