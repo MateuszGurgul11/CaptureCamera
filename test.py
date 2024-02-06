@@ -10,8 +10,6 @@ if not cap.isOpened():
     print("error")
     exit()
 
-line_active = False
-
 while True:
     scap, frame = cap.read()
 
@@ -30,32 +28,19 @@ while True:
                 connection_drawing_spec=mp_drawing.DrawingSpec(color=(0, 0, 0), thickness=2)
             )
 
+            # Indeks punktów końcowych palców
             finger_tip_indices = [4, 8, 12, 16, 20]
 
-            def index_thumb_line():
-                index_finger_tip = hand_landmarks.landmark[8]
-                thumb_tip = hand_landmarks.landmark[4]
+            # Koordynaty punktów końcowych palec wskazującego (index finger) i kciuka (thumb)
+            index_finger_tip = hand_landmarks.landmark[8]
+            thumb_tip = hand_landmarks.landmark[4]
 
-                index_finger_coords = (int(index_finger_tip.x * frame.shape[1]), int(index_finger_tip.y * frame.shape[0]))
-                thumb_coords = (int(thumb_tip.x * frame.shape[1]), int(thumb_tip.y * frame.shape[0]))
+            # Współrzędne punktów końcowych
+            index_finger_coords = (int(index_finger_tip.x * frame.shape[1]), int(index_finger_tip.y * frame.shape[0]))
+            thumb_coords = (int(thumb_tip.x * frame.shape[1]), int(thumb_tip.y * frame.shape[0]))
 
-                cv2.line(frame, index_finger_coords, thumb_coords, (0, 0, 0), 4)
-
-            def line_on():
-                global line_active
-                tip_index = 20
-                base_index = 17
-
-                tip_point = hand_landmarks.landmark[tip_index]
-                base_point = hand_landmarks.landmark[base_index]
-
-                if tip_point.y < base_point.y:
-                    index_thumb_line()
-                    line_active = True
-                else:
-                    line_active = False
-        
-        line_on()
+            # Rysowanie linii łączącej palec wskazujący z kciukiem
+            cv2.line(frame, index_finger_coords, thumb_coords, (255, 0, 0), 2)
 
     cv2.imshow('finger_detection', frame)
 
